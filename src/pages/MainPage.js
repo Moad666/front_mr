@@ -1,19 +1,29 @@
 // src/pages/MainPage.js
-import React from "react";
+import React, { useState } from "react";
 import SideBar from "../components/SideBar";
+import Popup from "../components/CreateRules";
 
 function MainPage() {
+  const [showPopup, setShowPopup] = useState(false);
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
+
   return (
-    <div className="flex">
+    <div className="flex h-screen overflow-hidden">
+      {/* Sidebar */}
       <SideBar />
-      <div className="ml-64 w-full">
+
+      {/* Main Content */}
+      <div className="flex flex-col flex-1 overflow-hidden">
         {/* Header */}
         <header className="flex justify-between items-center p-4 bg-white">
-          <div className="flex-1 text-center flex flex-col mr-96">
-            <span className="text-lg mr-96">
+          <div className="flex-1 text-center flex flex-col mr-80">
+            <span className="text-lg">
               <b>Rules</b>
             </span>
-            <span className="ml-16 mr-96">
+            <span className="ml-16">
               <small>
                 <b>Main Page</b> &gt;{" "}
                 <span className="text-blue-500">Rules</span>
@@ -66,6 +76,7 @@ function MainPage() {
             <button
               type="button"
               className="flex items-center text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+              onClick={togglePopup}
             >
               <svg
                 className="w-4 h-4 mr-2"
@@ -80,64 +91,61 @@ function MainPage() {
           </div>
         </div>
 
+        {/* Popup Component */}
+        {showPopup && <Popup show={showPopup} onClose={togglePopup} />}
+
         {/* Table */}
-        <div className="Table mt-8 ml-28 mr-5">
-          <div className="relative overflow-x-auto bg-white border border-gray-300 rounded-lg">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+        <div className="overflow-x-auto ml-96 mr-4">
+          <div className="min-w-full bg-white border border-gray-300 rounded-lg overflow-hidden">
+            <table className="min-w-full">
+              <thead className="bg-gray-50">
                 <tr>
-                  <th scope="col" className="px-6 py-3">
-                    <div class="flex items-center mb-4">
+                  <th className="px-6 py-3 text-xs text-gray-700 uppercase">
+                    <div className="flex items-center">
                       <input
-                        id="default-checkbox"
+                        id="selectAllCheckbox"
                         type="checkbox"
-                        value=""
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                       />
                     </div>
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th className="px-6 py-3 text-xs text-gray-700 uppercase">
                     Name
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th className="px-6 py-3 text-xs text-gray-700 uppercase">
                     Description
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th className="px-6 py-3 text-xs text-gray-700 uppercase">
                     Created
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th className="px-6 py-3 text-xs text-gray-700 uppercase">
                     Last Updated
                   </th>
                 </tr>
               </thead>
-              <tbody>
-                <tr className="bg-white border-b">
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                  >
-                    <div class="flex items-center mb-4">
+              <tbody className="divide-y divide-gray-200">
+                <tr className="bg-white">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex items-center">
                       <input
-                        id="default-checkbox"
+                        id="checkbox1"
                         type="checkbox"
-                        value=""
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                       />
                     </div>
-                  </th>
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                  >
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
                     Loan Approval Rules
-                  </th>
-                  <td className="px-6 py-4">
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-500 text-center">
                     Criteria and rules for approving loan applications
                   </td>
-                  <td className="px-6 py-4">2024-01-15</td>
-                  <td className="px-6 py-4 relative">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                    2024-01-15
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                     2024-05-10
-                    <button type="button" className="absolute right-0 p-2">
+                    <button type="button" className="absolute right-4 p-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5"
@@ -153,75 +161,28 @@ function MainPage() {
                     </button>
                   </td>
                 </tr>
-                <tr className="bg-white border-b">
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                  >
-                    <div class="flex items-center mb-4">
+                <tr className="bg-white">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex items-center">
                       <input
-                        id="default-checkbox"
+                        id="checkbox1"
                         type="checkbox"
-                        value=""
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                       />
                     </div>
-                  </th>
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                  >
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
                     Loan Approval Rules
-                  </th>
-                  <td className="px-6 py-4">
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-500 text-center">
                     Criteria and rules for approving loan applications
                   </td>
-                  <td className="px-6 py-4">2024-01-15</td>
-                  <td className="px-6 py-4 relative">
-                    2024-05-10
-                    <button type="button" className="absolute right-0 p-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M2 9a2 2 0 100-4 2 2 0 000 4zM8 9a2 2 0 100-4 2 2 0 000 4zm6 0a2 2 0 100-4 2 2 0 000 4z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </button>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                    2024-01-15
                   </td>
-                </tr>
-                <tr className="bg-white border-b">
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                  >
-                    <div class="flex items-center mb-4">
-                      <input
-                        id="default-checkbox"
-                        type="checkbox"
-                        value=""
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      />
-                    </div>
-                  </th>
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                  >
-                    Loan Approval Rules
-                  </th>
-                  <td className="px-6 py-4">
-                    Criteria and rules for approving loan applications
-                  </td>
-                  <td className="px-6 py-4">2024-01-15</td>
-                  <td className="px-6 py-4 relative">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                     2024-05-10
-                    <button type="button" className="absolute right-0 p-2">
+                    <button type="button" className="absolute right-4 p-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5"
