@@ -2,9 +2,12 @@
 import React, { useState } from "react";
 import SideBar from "../components/SideBar";
 import Popup from "../components/CreateRules";
+import { NotificationContainer, NotificationManager } from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 function MainPage() {
   const [showPopup, setShowPopup] = useState(false);
+  
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
