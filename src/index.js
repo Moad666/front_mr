@@ -1,39 +1,55 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom/client';
-// import './index.css';
-// import App from './App';
-// import reportWebVitals from './reportWebVitals';
-// import MainPage from './pages/MainPage';
-// import Authentication from './pages/Authentication';
-// import { BrowserRouter as Router } from "react-router-dom";
+import * as React from "react";
+import * as ReactDOM from "react-dom/client";
+import Main from "./App";
+import Authentication from "./pages/Authentication";
+import KanbanPage from "./pages/KanbanPage";
+import BusnessRuleDisplay from "./pages/BusnessRuleDisplay";
+import MainPage from "./pages/MainPage";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import "./index.css";
+import UploadFilePage from "./pages/UploadFilePage";
+import WorkflowPage from "./pages/WorkflowPage";
 
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(
-//   <React.StrictMode>
-//     <Authentication />
-//   </React.StrictMode>
-// );
-// reportWebVitals();
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Authentication />,
+  },
+  {
+    path: "/MainPage",
+    element: <Main />,
+    children: [
+      {
+        path: "/MainPage/rulekanban",
+        element: <KanbanPage /> ,
+      },
+      {
+        path: "/MainPage/displayrules",
+        element: <BusnessRuleDisplay />
+      },
+      {
+        path: "/MainPage/mainpage",
+        element: <MainPage />
+      },
+      {
+        path: "/MainPage/FileUploader",
+        element: <UploadFilePage />
+      },
+      {
+        path: "/MainPage/Workflowpage",
+        element: <WorkflowPage />
+      },
+    ],
+  },
+]);
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css'; // Make sure this imports TailwindCSS styles
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Authentication from './pages/Authentication';
-import MainPage from './pages/MainPage';
-import reportWebVitals from './reportWebVitals';
+ReactDOM.createRoot(document.getElementById("root")).render(
+  
+    <RouterProvider router={router} />
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/" element={<Authentication />} />
-        <Route path="/MainPage" element={<MainPage />} />
-      </Routes>
-    </Router>
-  </React.StrictMode>,
-  document.getElementById('root')
 );
 
-reportWebVitals();
 

@@ -19,7 +19,7 @@ const SideBar = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               stroke="currentColor"
               className="size-6 mr-2"
             >
@@ -33,7 +33,7 @@ const SideBar = () => {
           </a>
         </li>
         <li className="relative">
-          <a
+          <Link to="/ruledisplay"
             className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out"
             href="#!"
             data-mdb-ripple="true"
@@ -59,7 +59,7 @@ const SideBar = () => {
               />
             </svg>
             Rules
-          </a>
+          </Link>
         </li>
         <li className="relative">
           <a

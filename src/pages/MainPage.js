@@ -5,7 +5,6 @@ import SideBar from "../components/SideBar";
 function MainPage() {
   return (
     <div className="flex">
-      <SideBar />
       <div className="ml-64 w-full">
         {/* Header */}
         <header className="flex justify-between items-center p-4 bg-white">
