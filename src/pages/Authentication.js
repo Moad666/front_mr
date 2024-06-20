@@ -53,7 +53,7 @@ function Authentication(){
                         onChange={(e) => setPassword(e.target.value)}
                         className='w-full p-2 border border-gray-300 rounded'
                     />
-                    <a href='#' className='text-xs text-blue-500'>Forgot Password?</a>
+                    <a href='#' className='text-xs text-blue-500'>Forgot Password ?</a>
                     <button type='submit' className='w-full p-2 bg-blue-500 text-white rounded'>
                         Login
                     </button>

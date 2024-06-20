@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import profile from "../images/profile.jpg";
 import MainPage from "../pages/MainPage";
 import { Link } from "react-router-dom";
-import Authentication from '../pages/Authentication';
+import Authentication from "../pages/Authentication";
 
 const SideBar = () => {
+
   return (
     <div className="w-64 h-full shadow-md bg-white px-1 fixed flex flex-col justify-between">
       <ul className="relative">
@@ -170,8 +171,14 @@ const SideBar = () => {
           <hr className="my-2 border-gray-300" />
         </li>
       </ul>
-      <div className="flex justify-center mb-4">
-        <img src={profile} alt="Profile" className="w-16 h-16 rounded-full" />
+      <div className="flex mb-4">
+        <button 
+        className="bg-white-500 hover:bg-gray-100 text-white font-bold py-2 px-4 rounded flex items-center">
+          
+          <img src={profile} alt="Profile" className="w-14 h-14 rounded-full" />
+          <span className="ml-2 text-gray-400 text-sm">Moad El Otmani</span>
+        </button>
+        
       </div>
     </div>
   );

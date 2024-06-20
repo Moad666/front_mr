@@ -7,7 +7,7 @@ import 'react-notifications/lib/notifications.css';
 
 function MainPage() {
   const [showPopup, setShowPopup] = useState(false);
-  
+
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
@@ -98,7 +98,7 @@ function MainPage() {
         {showPopup && <Popup show={showPopup} onClose={togglePopup} />}
 
         {/* Table */}
-        <div className="overflow-x-auto ml-96 mr-4">
+        <div className="overflow-x-auto ml-72 mr-4">
           <div className="min-w-full bg-white border border-gray-300 rounded-lg overflow-hidden">
             <table className="min-w-full">
               <thead className="bg-gray-50">
