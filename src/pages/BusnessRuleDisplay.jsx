@@ -1,13 +1,15 @@
 import React from "react";
-import { Button } from "antd";
+import { Button, Descriptions, Input } from "antd";
 import { Table } from 'antd';
 import SearchRule from "../components/BusnessRuleDisplay/SearchRule";
 import MyButton from "../components/BusnessRuleDisplay/MyButton";
 import MyButton2 from "../components/BusnessRuleDisplay/Mybotton2";
 import DraggableTable from "../components/draggabletable/TableDraggable";
-
+import { Modal } from "antd";
+import { useState } from "react";
 
 export default function BusnessRuleDisplay(){
+
     const columns = [
       {
             title: 'drag',
@@ -45,7 +47,9 @@ export default function BusnessRuleDisplay(){
           },
       ];
 
-      const data = [
+     
+     
+      const initialData = [
         
         {
             n: '1',
@@ -78,7 +82,25 @@ export default function BusnessRuleDisplay(){
         
       ];
 
+
+const [data,setdata]=useState(initialData);
+const [isModalOpen, setIsModalOpen] = useState(false);
+const [rule,setrule]=useState({rulename:"",Description:"",conditions:"",actions:""});
       
+
+const showModal = () => {
+  setIsModalOpen(true);
+};
+
+const handleOk = () => {
+  setdata(...data,rule);
+  setrule({rulename:"",Description:"",conditions:"",actions:""})
+  setIsModalOpen(false);
+};
+
+const handleCancel = () => {
+  setIsModalOpen(false);
+};
 
       const onChange = (pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra);
@@ -107,7 +129,7 @@ export default function BusnessRuleDisplay(){
     </div>
 
     <div >
-    <Button type="primary">Add Rule</Button>
+    <Button onClick={()=>{showModal()}} type="primary">Add Rule</Button>
     </div>
     </div>
 
@@ -129,6 +151,26 @@ export default function BusnessRuleDisplay(){
         <MyButton text="Validate and Procced"/>
         
     </div>
+
+    <Modal title="" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <p>Rule name </p>
+        <Input  onChange={(e)=>{
+          setrule({...rule,rulename:e.target.value});
+        }}/>
+        <p>description </p>
+        <Input onChange={(e)=>{
+          setrule({...rule,Description:e.target.value});
+        }}/>
+        <p>condtion </p>
+        <Input onChange={(e)=>{
+          setrule({...rule,condition:e.target.value});
+        }}/>
+        <p>action </p>
+        <Input onChange={(e)=>{
+          setrule({...rule,action:e.target.value});
+        }}/>
+
+      </Modal>
 
     </div>
    
