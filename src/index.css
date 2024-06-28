@@ -7,6 +7,11 @@
   margin: 0;
 }
 
+input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -22,6 +27,17 @@ background-color: #F9FAFF;
 border-radius: 50px;
 color: blue;
 }
+
+.changecolorchat{
+  padding: 0.5rem;
+  border-radius: 5px;
+  }
+
+.changecolorchat:hover {
+  background-color: #F9FAFF;
+  border-radius: 5px;
+  color: blue;
+  }
 
 .dndflow {
   flex-direction: column;

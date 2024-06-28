@@ -12,6 +12,7 @@ import {
 import "./index.css";
 import UploadFilePage from "./pages/UploadFilePage";
 import WorkflowPage from "./pages/WorkflowPage";
+import Chatbotassiatance from "./pages/Chatbotassiatance";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "/MainPage/Workflowpage",
         element: <WorkflowPage />
+      },
+      {
+        path: "/MainPage/Chatbot",
+        element: <Chatbotassiatance />
       },
     ],
   },
