@@ -1,6 +1,6 @@
-import { Input } from "antd";
+import { Input, Spin } from "antd";
 import React, { useEffect, useRef, useState } from "react";
-import { FaArrowCircleRight,  } from "react-icons/fa";
+import { FaArrowCircleRight } from "react-icons/fa";
 import { RiScrollToBottomFill } from "react-icons/ri";
 
 export default function ChatbotAssistance() {
@@ -41,6 +41,7 @@ export default function ChatbotAssistance() {
     }
   ]);
 
+  const [loading, setLoading] = useState(false);
   const [showScrollIcon, setShowScrollIcon] = useState(false);
   const messageEndRef = useRef(null);
   const chatContainerRef = useRef(null);
@@ -57,15 +58,15 @@ export default function ChatbotAssistance() {
     setActiveChatId(newChatId);
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (text.trim() === "") return;
-    
+
     const newMessage = {
       sender: "user",
       content: text,
       date: new Date().toISOString()
     };
-    
+
     setChats(prevChats => {
       return prevChats.map(chat => {
         if (chat.id === activeChatId) {
@@ -73,20 +74,61 @@ export default function ChatbotAssistance() {
             ...chat,
             messages: [...chat.messages, newMessage]
           };
-          
+
           // Update the chat title if it's the first message
           if (chat.messages.length === 0) {
             updatedChat.title = text;
           }
-          
+
           return updatedChat;
         }
         return chat;
       });
     });
-    
+
     setText("");
     scrollToBottom();
+
+    setLoading(true); // Start loading
+
+    // Send the message to the server
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/generate-text/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ prompt: text })
+      });
+
+      const data = await response.json();
+
+      // Add the chatbot's response to the chat
+      const chatbotMessage = {
+        sender: "chatbot",
+        content: data.response, // Assuming the server returns a JSON object with a 'response' field
+        date: new Date().toISOString()
+      };
+
+      setChats(prevChats => {
+        return prevChats.map(chat => {
+          if (chat.id === activeChatId) {
+            return {
+              ...chat,
+              messages: [...chat.messages, chatbotMessage]
+            };
+          }
+          return chat;
+        });
+      });
+
+      scrollToBottom();
+    } catch (error) {
+      console.error("Error sending message to server:", error);
+    } finally {
+      setLoading(false); // Stop loading
+      scrollToBottom();
+    }
   };
 
   const scrollToBottom = () => {
@@ -158,6 +200,11 @@ export default function ChatbotAssistance() {
               </div>
             </div>
           ))}
+          {loading && (
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50px" }}>
+              <Spin size="large" />
+            </div>
+          )}
           <div ref={messageEndRef}></div>
         </div>
         {showScrollIcon && (
@@ -172,6 +219,7 @@ export default function ChatbotAssistance() {
             value={text}
             onChange={(e) => setText(e.target.value)}
             onPressEnter={handleSendMessage}
+            variant="borderless"
           />
           <FaArrowCircleRight
             color={text.length === 0 ? "gray" : "black"}
@@ -180,7 +228,6 @@ export default function ChatbotAssistance() {
             style={{ cursor: "pointer" }}
           />
         </div>
-        
       </div>
     </div>
   );
